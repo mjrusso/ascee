@@ -24,9 +24,9 @@ defmodule AsceeWeb do
       use Phoenix.Router, helpers: false
 
       # Import common connection and controller functions to use in pipelines
-      import Plug.Conn
       import Phoenix.Controller
       import Phoenix.LiveView.Router
+      import Plug.Conn
     end
   end
 
@@ -80,10 +80,10 @@ defmodule AsceeWeb do
 
   defp html_helpers do
     quote do
+      import AsceeWeb.CoreComponents
       # HTML escaping functionality
       import Phoenix.HTML
       # Core UI components and translation
-      import AsceeWeb.CoreComponents
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS

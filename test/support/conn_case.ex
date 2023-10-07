@@ -19,15 +19,15 @@ defmodule AsceeWeb.ConnCase do
 
   using do
     quote do
-      # The default endpoint for testing
-      @endpoint AsceeWeb.Endpoint
-
       use AsceeWeb, :verified_routes
 
       # Import conveniences for testing with connections
-      import Plug.Conn
-      import Phoenix.ConnTest
       import AsceeWeb.ConnCase
+      import Phoenix.ConnTest
+      import Plug.Conn
+
+      # The default endpoint for testing
+      @endpoint AsceeWeb.Endpoint
     end
   end
 
