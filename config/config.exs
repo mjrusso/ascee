@@ -10,6 +10,7 @@ import Config
 # Configures the endpoint
 config :ascee, AsceeWeb.Endpoint,
   url: [host: "localhost"],
+  adapter: Bandit.PhoenixAdapter,
   render_errors: [
     formats: [html: AsceeWeb.ErrorHTML, json: AsceeWeb.ErrorJSON],
     layout: false
