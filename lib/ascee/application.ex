@@ -8,14 +8,10 @@ defmodule Ascee.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Telemetry supervisor
       AsceeWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: Ascee.PubSub},
-      # Start the Endpoint (http/https)
-      AsceeWeb.Endpoint
-      # Start a worker by calling: Ascee.Worker.start_link(arg)
-      # {Ascee.Worker, arg}
+      AsceeWeb.Endpoint,
+      Ascee.CellSupervisor
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

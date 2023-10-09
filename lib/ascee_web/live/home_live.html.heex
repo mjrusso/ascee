@@ -1,0 +1,11 @@
+<div class="mx-auto text-center font-mono">
+  <%= for r <- 1..@num_rows do %>
+    <div class={"grid grid-cols-#{@num_cols} gap-0"}>
+      <%= for c <- 1..@num_cols do %>
+        <div class="w-full pb-full col-span-1 bg-gray-200">
+          <%= @state[:"r#{r}c#{c}"] %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>

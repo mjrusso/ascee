@@ -7,6 +7,8 @@
 # General application configuration
 import Config
 
+config :ascee, num_rows: 20, num_cols: 8
+
 # Configures the endpoint
 config :ascee, AsceeWeb.Endpoint,
   url: [host: "localhost"],
