@@ -3,40 +3,32 @@ defmodule AsceeWeb.HomeLive do
   use AsceeWeb, :live_view
 
   alias Ascee.Cell
-  alias Ascee.CellSupervisor
 
   @num_rows Application.compile_env(:ascee, :num_rows)
   @num_cols Application.compile_env(:ascee, :num_cols)
 
+  @topic Cell.topic()
+
   @impl true
   def mount(_params, _session, socket) do
-    state =
-      for row <- 1..@num_rows, col <- 1..@num_cols, into: %{} do
-        id = CellSupervisor.process_name_for_cell(row, col)
-        {id, Cell.get(id)}
-      end
-
     if connected?(socket) do
-      :timer.send_interval(1, self(), :tick)
+      Phoenix.PubSub.subscribe(Ascee.PubSub, @topic)
     end
 
     {:ok,
      socket
      |> assign(:num_rows, @num_rows)
      |> assign(:num_cols, @num_cols)
-     |> assign(:state, state)}
+     |> assign(:state, %{})}
   end
 
   @impl true
-  def handle_info(:tick, socket) do
-    state =
-      for row <- 1..@num_rows, col <- 1..@num_cols, into: %{} do
-        id = CellSupervisor.process_name_for_cell(row, col)
+  def handle_info(msg, socket) do
+    {row, col, char} = msg
 
-        {id, Cell.get(id)}
-      end
+    id = Cell.process_name(row, col)
 
-    {:noreply, assign(socket, :state, state)}
+    {:noreply, assign(socket, :state, Map.put(socket.assigns.state, id, char))}
   end
 
   @impl true

@@ -2,6 +2,8 @@ defmodule Ascee.CellSupervisor do
   @moduledoc false
   use Supervisor
 
+  alias Ascee.Cell
+
   @num_rows Application.compile_env(:ascee, :num_rows)
   @num_cols Application.compile_env(:ascee, :num_cols)
 
@@ -13,14 +15,9 @@ defmodule Ascee.CellSupervisor do
   def init(:ok) do
     children =
       for row <- 1..@num_rows, col <- 1..@num_cols do
-        name = process_name_for_cell(row, col)
-        Supervisor.child_spec({Ascee.Cell, name: name}, id: name)
+        Supervisor.child_spec({Cell, {row, col}}, id: {Cell, row, col})
       end
 
     Supervisor.init(children, strategy: :one_for_one)
-  end
-
-  def process_name_for_cell(row, col) do
-    :"r#{row}c#{col}"
   end
 end

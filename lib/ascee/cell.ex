@@ -2,77 +2,47 @@ defmodule Ascee.Cell do
   @moduledoc false
   use GenServer
 
-  @ascii [
-    ".",
-    "!",
-    "@",
-    "#",
-    "$",
-    "%",
-    "^",
-    "&",
-    "*",
-    "(",
-    ")",
-    "_",
-    "-",
-    "+",
-    "=",
-    "~",
-    "`",
-    ":",
-    ";",
-    "'",
-    "\"",
-    ",",
-    "<",
-    ">",
-    "?",
-    "/",
-    "|",
-    "\\",
-    "[",
-    "]",
-    "{",
-    "}"
-  ]
+  alias Ascee.Chars
+  alias Phoenix.PubSub
+
+  @topic "cell:update"
+
+  def topic, do: @topic
+
+  def process_name(row, col) do
+    :"r#{row}c#{col}"
+  end
 
   # Client
 
-  def start_link(opts) do
-    GenServer.start_link(__MODULE__, :ok, opts)
+  def start_link({row, col}) do
+    GenServer.start_link(__MODULE__, {row, col}, name: process_name(row, col))
   end
 
   def get(server) do
     GenServer.call(server, :get)
   end
 
-  def update(server) do
-    GenServer.cast(server, :update)
-  end
-
   # Server (callbacks)
 
   @impl true
-  def init(:ok) do
+  def init({row, col}) do
     :timer.send_interval(1_000, self(), :tick)
 
-    {:ok, Enum.random(@ascii)}
+    {:ok, {row, col, Chars.random()}}
   end
 
   @impl true
   def handle_call(:get, _from, state) do
-    {:reply, state, state}
-  end
-
-  @impl true
-  def handle_cast(:update, _state) do
-    {:noreply, Enum.random(@ascii)}
+    {_row, _col, char} = state
+    {:reply, char, state}
   end
 
   @impl true
   def handle_info(:tick, state) do
-    {:noreply, Enum.random(@ascii)}
+    state = put_elem(state, 2, Chars.random())
+    PubSub.broadcast(Ascee.PubSub, @topic, state)
+    {:noreply, state}
   end
 
   @impl true
