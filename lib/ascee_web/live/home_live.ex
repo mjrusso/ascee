@@ -23,12 +23,37 @@ defmodule AsceeWeb.HomeLive do
   end
 
   @impl true
+  def render(assigns) do
+    ~H"""
+    <div class="mx-auto text-center font-mono">
+      <div class="grid gap-0" style={"grid-template-columns: repeat(#{@num_cols}, minmax(0, 1fr))"}>
+        <%= for row <- 1..@num_rows, col <- 1..@num_cols  do %>
+          <div
+            class="col-span-1 bg-gray-100"
+            phx-click="kill"
+            phx-value-row={row}
+            phx-value-col={col}
+            phx-value-char={Map.get(@state, {row, col}, " ")}
+          >
+            <%= Map.get(@state, {row, col}, " ") %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+    """
+  end
+
+  @impl true
   def handle_info(msg, socket) do
     {row, col, char} = msg
 
-    id = Cell.process_name(row, col)
+    {:noreply, assign(socket, :state, Map.put(socket.assigns.state, {row, col}, char))}
+  end
 
-    {:noreply, assign(socket, :state, Map.put(socket.assigns.state, id, char))}
+  @impl true
+  def handle_event("kill", %{"row" => row, "col" => col, "char" => _char}, socket) do
+    Cell.crash(row, col)
+    {:noreply, socket}
   end
 
   @impl true

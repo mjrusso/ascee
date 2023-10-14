@@ -1,9 +1,0 @@
-<div class="mx-auto text-center font-mono">
-  <div class={"grid grid-cols-#{@num_cols} gap-0"}>
-    <%= for row <- 1..@num_rows, col <- 1..@num_cols  do %>
-      <div class="col-span-1 bg-gray-200">
-        <%= Map.get(@state, Cell.process_name(row, col), " ") %>
-      </div>
-    <% end %>
-  </div>
-</div>

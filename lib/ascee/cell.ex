@@ -9,7 +9,7 @@ defmodule Ascee.Cell do
 
   def topic, do: @topic
 
-  def process_name(row, col) do
+  defp process_name(row, col) do
     :"r#{row}c#{col}"
   end
 
@@ -19,8 +19,22 @@ defmodule Ascee.Cell do
     GenServer.start_link(__MODULE__, {row, col}, name: process_name(row, col))
   end
 
-  def get(server) do
+  defp get(server) do
     GenServer.call(server, :get)
+  end
+
+  def get(row, col) do
+    server = process_name(row, col)
+    get(server)
+  end
+
+  defp crash(server) do
+    GenServer.cast(server, :this_will_deliberately_crash)
+  end
+
+  def crash(row, col) do
+    server = process_name(row, col)
+    crash(server)
   end
 
   # Server (callbacks)
@@ -28,8 +42,9 @@ defmodule Ascee.Cell do
   @impl true
   def init({row, col}) do
     :timer.send_interval(1_000, self(), :tick)
-
-    {:ok, {row, col, Chars.random()}}
+    state = {row, col, Chars.random()}
+    PubSub.broadcast(Ascee.PubSub, @topic, state)
+    {:ok, state}
   end
 
   @impl true
