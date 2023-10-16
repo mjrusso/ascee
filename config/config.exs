@@ -7,7 +7,7 @@
 # General application configuration
 import Config
 
-config :ascee, num_rows: 20, num_cols: 8
+config :ascee, num_rows: 24, num_cols: 48
 
 # Configures the endpoint
 config :ascee, AsceeWeb.Endpoint,
