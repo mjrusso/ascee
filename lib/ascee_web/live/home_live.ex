@@ -70,7 +70,7 @@ defmodule AsceeWeb.HomeLive do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "ASCEE")
+    |> assign(:page_title, "ascee")
     |> assign(:user, nil)
   end
 end
