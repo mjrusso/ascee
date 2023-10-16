@@ -28,6 +28,25 @@ In particular:
     commit](https://github.com/mjrusso/ascee/commit/f9bbe3cabaae25f0053f9a7313ea9c17b73a6081)
     for details
 
+
+## Demos
+
+### Grid + Message Passing
+
+<video src="./priv/demos/ascee-demo-1.mp4" />
+
+### Individual Process Crash + Restart
+
+<video src="./priv/demos/ascee-demo-2.mp4" />
+
+### Too Many Crashes: Supervisor Restarts All Child Processes
+
+<video src="./priv/demos/ascee-demo-3.mp4" />
+
+### Built-in Sync Across Tabs
+
+<video src="./priv/demos/ascee-demo-4.mp4" />
+
 ## Setup and Usage
 
 - Exact versions of required system dependencies (Elixir and Erlang) are
