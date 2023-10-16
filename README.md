@@ -22,16 +22,17 @@ In particular:
     commit](https://github.com/mjrusso/ascee/commit/f9bbe3cabaae25f0053f9a7313ea9c17b73a6081)
     for details
 
-Exact versions of required system dependencies (Elixir and Erlang) are
-specified via [.tool-versions](./.tool-versions). Using
-[asdf](https://asdf-vm.com/) is recommended, but not required. (Read the
-[.tool-versions file](./.tool-versions) for documentation on how to install
-_asdf_ and all of the required plugins.)
+## Setup and Usage
 
-Setup and usage instructions:
+- Exact versions of required system dependencies (Elixir and Erlang) are
+  specified via [.tool-versions](./.tool-versions). Using
+  [asdf](https://asdf-vm.com/) is recommended, but not required. (Read the
+  [.tool-versions file](./.tool-versions) for documentation on how to install
+  _asdf_ and all of the required plugins.)
 
 - After installing Elixir and Erlang, run `mix setup` to install and setup
   project dependencies
+
 - Start the Phoenix endpoint with `mix phx.server`, or inside IEx with `iex -S
   mix phx.server`
 
