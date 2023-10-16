@@ -9,6 +9,12 @@ In particular:
 
 - every cell in the grid is backed by a process; the "value" of each cell is an
   ASCII character
+- each cell periodically broadcasts its current value using [Phoenix
+  PubSub](https://hexdocs.pm/phoenix_pubsub/Phoenix.PubSub.html)
+  - all [LiveView
+    processes](https://fly.io/phoenix-files/a-liveview-is-a-process/) _(note:
+    one LiveView process per open browser tab)_ receive these messages and
+    update internal state, which automatically re-renders the grid
 - cells periodically ask their neighbouring cells what their value is
 - each cell updates its value to match the most common neighbouring value
   - (the goal is for the grid to eventually converge on a common value,
