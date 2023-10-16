@@ -33,19 +33,19 @@ In particular:
 
 ### Grid + Message Passing
 
-<video src="./priv/demos/ascee-demo-1.mp4"></video>
+https://github.com/mjrusso/ascee/assets/100451/ecd2e072-eaa7-4f84-aeba-3288cafef4b7
 
 ### Individual Process Crash + Restart
 
-<video src="./priv/demos/ascee-demo-2.mp4"></video>
+https://github.com/mjrusso/ascee/assets/100451/d04f6eb5-e581-40d7-8a32-2fe3257c324c
 
 ### Too Many Crashes: Supervisor Restarts All Child Processes
 
-<video src="./priv/demos/ascee-demo-3.mp4"></video>
+https://github.com/mjrusso/ascee/assets/100451/b9b0dfd9-b383-4930-897c-154cccd32480
 
 ### Built-in Sync Across Tabs
 
-<video src="./priv/demos/ascee-demo-4.mp4"></video>
+https://github.com/mjrusso/ascee/assets/100451/41eabdd7-3626-4c34-bbab-b863dfa26a03
 
 ## Setup and Usage
 
