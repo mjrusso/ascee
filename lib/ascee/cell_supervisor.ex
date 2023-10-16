@@ -18,6 +18,6 @@ defmodule Ascee.CellSupervisor do
         Supervisor.child_spec({Cell, {row, col}}, id: {Cell, row, col})
       end
 
-    Supervisor.init(children, strategy: :one_for_one)
+    Supervisor.init(children, strategy: :one_for_one, max_restarts: 5, max_seconds: 5)
   end
 end
