@@ -47,7 +47,14 @@ defmodule AsceeWeb.HomeLive do
   def handle_info(msg, socket) do
     {row, col, char} = msg
 
-    {:noreply, assign(socket, :state, Map.put(socket.assigns.state, {row, col}, char))}
+    existing = Map.get(socket.assigns.state, {row, col}, " ")
+
+    if char != existing do
+      state = Map.put(socket.assigns.state, {row, col}, char)
+      {:noreply, assign(socket, :state, state)}
+    else
+      {:noreply, socket}
+    end
   end
 
   @impl true
