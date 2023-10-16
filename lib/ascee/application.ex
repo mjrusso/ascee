@@ -11,6 +11,7 @@ defmodule Ascee.Application do
       AsceeWeb.Telemetry,
       {Phoenix.PubSub, name: Ascee.PubSub},
       AsceeWeb.Endpoint,
+      {Task.Supervisor, name: Ascee.CellTaskSupervisor},
       Ascee.CellSupervisor
     ]
 
